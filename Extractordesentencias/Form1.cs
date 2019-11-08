@@ -78,11 +78,15 @@ namespace Extractordesentencias
                     for (int y = 0; y < archivo.Length; y++)
                     {
                         Texto = archivo[y].Split('"');
-                        string Resultado = Texto.Where(xs => xs.Replace('"', ' ').StartsWith("INSERT INTO" + Tabla)).FirstOrDefault();
+                        string StartsWith = "INSERT INTO" + Tabla;
+                        IEnumerable<string> Resultado = Texto.Where(xs => xs.Replace('"', ' ').StartsWith(StartsWith));
 
-                        if (!string.IsNullOrEmpty(Resultado))
+                        if (Resultado.Count() > 0)
                         {
-                            textBox2.Text = String.Concat(textBox2.Text, Resultado, "\r\n", "\r\n");
+                            foreach (var item in Resultado)
+                            {
+                                textBox2.Text = String.Concat(textBox2.Text, item, "\r\n", "\r\n");
+                            }
                         }
                     }
 
@@ -122,11 +126,15 @@ namespace Extractordesentencias
                         for (int y = 0; y < archivo.Length; y++)
                         {
                             Texto = archivo[y].Split('"');
-                            string Resultado = Texto.Where(xs => xs.Replace('"', ' ').StartsWith("UPDATE" + Tabla)).FirstOrDefault();
+                            string StartsWith = "UPDATE" + Tabla;
+                            IEnumerable<string> Resultado = Texto.Where(xs => xs.Replace('"', ' ').StartsWith(StartsWith));
 
-                            if (!string.IsNullOrEmpty(Resultado))
+                            if (Resultado.Count() > 0)
                             {
-                                textBox2.Text = String.Concat(textBox2.Text, Resultado, "\r\n", "\r\n");
+                                foreach (var item in Resultado)
+                                {
+                                    textBox2.Text = String.Concat(textBox2.Text, item, "\r\n", "\r\n");
+                                }
                             }
                         }
 
